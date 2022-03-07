@@ -8,7 +8,6 @@ const { sensitiveHeaders } = require('http2');
 const SESSION_FILE_PATH = './session.json';
 let client;
 let sessionData;
-const tel;
 
 const withSession = () => {
     // Si se detecta una sesion iniciadada, entoces secarga el archivo con las credenciales
