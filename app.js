@@ -44,13 +44,13 @@ const withOutSession = () => {
         qrcode.generate(qr, { small: true});
     });
 
-    client.on('authenticated', (session) =>{
+    client.on('authenticated', session  =>{
         //Aquí se guardan las credenciales de la sesión
         sessionData = session;
-        console.log(session);
+
         fs.writeFile(SESSION_FILE_PATH, JSON.stringify(session),  (err) => {
             if (err) {
-                console.log(err);
+                console.error(err);
             }
         });
     });
