@@ -60,19 +60,32 @@ const withOutSession = () => {
 /**
  * Función para detectar mensajes
  */
-const listenMessage = () => {
+ const listenMessage = () => {
     client.on('message',(msg) => {
         const {from, to, body} = msg;
 
-        switch (body) {
-            case 'Adios':
-                sendMessage(from, 'Hasta Luego 😁')
-                break;
-            case 'Hola':
-                sendMessage(from,'¡Bienvenido!')
-                sendMedia(from, 'esime_original.png')
-                break;
-        }
+        if (body === 'Hola' || body === 'hola' || body === 'ola' || body === 'Ola'){
+            sendMessage(from,'*¡Bienvenido al asistente virtual de ESIME Zacatenco!* acontinuación escribe la opción de tu interés: escribe *Matutino* o *Vespertino* para obtener información sobre los correos y ventanillas de gestión escolar, o escribe tu *Grupo* en formato de "1xx1" con las letras en minusculas para obtener tu horario y salones *(Actualemente solo se cuenta con los horarios de 5to a 9no semestre)*');
+
+        }else if ( body === 'Matutino' || body === 'matutino' || body === 'Vespertino' || body === 'vespertino' ){
+            switch (body) {
+                case 'Matutino':
+                    sendMedia(from, 'matutino.png');
+                    break;
+                case 'matutino':
+                    sendMedia(from, 'matutino.png');
+                    break;
+                case 'Vespertino':
+                    sendMedia(from, 'vespertino.png');
+                    break;
+                case 'vespertino':
+                    sendMedia(from, 'vespertino.png');
+                    break;
+            }
+        }else{
+            sendMessage(from, 'Este el horario del grupo solicitado: ');
+            sendMedia(from, body + '.png');
+        }    
 
         console.log(from, to, body);
     })
