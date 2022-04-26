@@ -2,6 +2,13 @@ const {Client, LocalAuth, MessageMedia} = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 var mysql = require('mysql');
 
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "incidenciastest"
+  });
+
 const client = new Client({
     authStrategy: new LocalAuth()
 });
@@ -24,38 +31,19 @@ client.initialize();
  */
  const listenMessage = () => {
     client.on('message',(msg) => {
-        const {from, to, body} = msg;
-        let txt = body.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        let text = txt.toLowerCase();
+        const {from, body} = msg;
+        let txt = body.normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                      .toLowerCase();
+        
+        if(txt === 'hola' || txt === 'ola' || txt === 'buenos dias' || txt === 'buenas tardes' || txt === 'buenas noches'){
+            sendMessage(from, 'Bienvenido al sistema de incidencias de laboratorios de computación.\n ¿Cuál es tu problema?\n 1.- Reporte de software\n 2.- Reporte de hardware\n 3.- Reporte administrativo\n');
+            mainMenu();
+        }else{
+            sendMessage(from, 'Opción invalida')
+        }
 
-        if (text === 'hola' || text === 'ola' || text=== 'buenas tardes' || text === 'buenos dias'){
-            sendMessage(from,'*¡Bienvenido al asistente virtual de ESIME Zacatenco!*\n \n' + 'a continuación escribe la opción de tu interés:\n' + 'Escribe *Matutino* o *Vespertino* para obtener información acerca los correos y ventanillas de gestión escolar\n \n' + 'Escribe tu *Grupo* en formato de "1XX1" para obtener tu horario y salones *(Actualemente solo se cuenta con los horarios de 5to a 9no semestre)*\n \n' + '*Escribe documentos si necesitas descargar algún formato*');
-
-        }else if (text === 'matutino' || text === 'vespertino' ){
-                    sendDocumento(from, text + '.png');
-
-        }else if (text === 'documentos'){
-            sendMessage(from, '*Los documentos con los que contamos son los siguientes* (escribe el nombre del documento que necesites):\n' + '1.- Socilicitud de reinscripción\n' + '2.- Solicitud de baja\n' + '3.- Solicitud de baja de materia\n' + '4.- Solicitud de cambio de turno\n' + '5.- Materias antecedentes\n');
-
-        }else if (text === 'materias antecedentes'){
-            sendMessage(from, 'Selecciona tu carrera:\n' + '1.- ICE\n' + '2.- IE\n' + '3.- ICA\n' + '4.- ISISA\n' + '5.- IF');
-
-        }else if (text === 'solicitud de reinscripcion' || text === 'solicitud de baja' || text === 'solicitud de baja de materia' || text === 'solicitud de cambio de turno'){
-            sendDocumento(from, text + '.pdf');
-
-        }else if (text === 'ice' || text === 'ica' || text === 'ie' || text === 'if' || text === 'isisa'){
-            sendDocumento(from, text + '.pdf');
-
-        }else if (text.length > 3 && text.length <= 5 && (text.charAt(0) === '1' || text.charAt(0) === '2' || text.charAt(0) === '3' || text.charAt(0) === '4' || text.charAt(0) === '5' || text.charAt(0) === '6' || text.charAt(0) === '7' || text.charAt(0) === '8' || text.charAt(0) === '9')){
-            sendMessage(from, 'Horario');
-            sendHorario(from, text + '.png');
-
-        }else if (text.length === 10 && text.charAt(0) === '2'){
-            sendMessage(from, 'Tu boleta es:\n' + text);
-
-        }else{sendMessage(from, 'Lo siento no entendí, vuelve a intentarlo');}   
-
-        console.log(from, to, body);
+        console.log(from, txt);
     })
 }
 
@@ -68,18 +56,47 @@ const sendMedia = (to, file) => {
     client.sendMessage(to, mediaFile)
 }
 
-const sendHorario = (to, file) => {
-    const mediaFile = MessageMedia.fromFilePath(`./mediaSend/horarios/${file}`)
-    client.sendMessage(to, mediaFile)
-}
-
-const sendDocumento = (to, file) => {
-    const mediaFile = MessageMedia.fromFilePath(`./mediaSend/documentos/${file}`)
-    client.sendMessage(to, mediaFile)
-}
-/**
- * Función para enviar mensajes
- */
 const sendMessage = (to, message) => {
     client.sendMessage(to, message)
+}
+
+const mainMenu = () => {
+    client.on('message',(msg) => {
+        const {from, to, body} = msg;
+        let txt = body.normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                      .toLowerCase();
+        switch(txt){
+            case '1':
+                sendMessage(from, 'Opción 1')
+                break;
+            case '2':
+                sendMessage(from, 'Opción 2')
+                break;
+            case '3':
+                sendMessage(from, 'Opción 3')
+                break;
+            case '4':
+                sendMessage(from, 'Opción 4')
+                break;
+            default:
+                sendMessage(from, 'Lo siento, no es una opción valida.');
+                break;
+        }
+
+        console.log(from, to, txt);
+    })
+}
+
+const insertFrom = (number) => {
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log("conectado");
+        var sql = 'INSERT INTO sesion VALUES ?';
+        var values = [['NULL', number]];
+        con.query(sql, [values], function (err, result) {
+            if (err) throw err;
+            console.log("Number of records inserted: " + result.affectedRows);
+        });
+    });
 }
