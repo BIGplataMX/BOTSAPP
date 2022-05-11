@@ -1,9 +1,8 @@
 const {Client, LocalAuth, MessageMedia} = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-const {insertHw, insertAd} = require('./src/db');
+const {insertEq, insertAd} = require('./src/db');
 
-var datosE = [];
-var datosA = [];
+var datos = [];
 var num = '0';
 
 const client = new Client({
@@ -33,34 +32,35 @@ client.initialize();
                       .toLowerCase();
             if (num === from || num === '0'){
                 if(txt === 'hola' || txt === 'ola' || txt === 'buenos dias' || txt === 'buenas tardes' || txt === 'buenas noches' || txt === 'buen dia'){
-                    sendMessage(from, '*Bienvenido al sistema de incidencias de laboratorios de computación* \n Ingresa la opción deseada \n 1.- Reporte de falla técnica \n 2.- Reporte administrativo');
+                    sendMessage(from, '*Bienvenido al sistema de incidencias de laboratorios de computación* \n Ingresa la opción deseada \n \n 1.- Reporte de falla técnica \n 2.- Reporte administrativo \n 0.- Para salir');
                     num = from;
                 }else if (txt === '1'){
-                    sendMessage(from, 'Para hacer un reporte sobre una falla en un equipo envía los siguientes datos anteponiendo un guión alto *"-"* antes de cada dato (por ejemplo "-4001", "-Juan perez", etc.) despues de cada dato recibirás un mensaje de confiramación: \n \n *Nombre* \n *Laboratio* \n *Numero del equipo*  \n *Materia* \n *Descripción del reporte* \n \n Una vez guardados los datos escibe *3* para guardar el reporte. \n \n En caso de que te equivoques o quieras corregir un dato escribe la palabra *del* para borrar los datos.');
+                    sendMessage(from, 'Para hacer un reporte sobre una falla en un equipo envía los siguientes datos anteponiendo un guión alto *-* antes de cada dato (como se ve en la imagen de ejemplo), despues de cada dato recibirás un mensaje de confirmación: \n \n *Nombre* \n *Laboratorio* \n *Numero del equipo*  \n *Materia* \n *Descripción del reporte* \n \n Una vez guardados los datos escibe *3* para guardar el reporte. \n \n En caso de que te equivoques o quieras corregir un dato escribe la palabra *del* para borrar los datos o presiona *0* si quieres salir.');
+                    sendMedia(from, 'tutodata.png');
                 }else if (txt === '2'){
-                    sendMessage(from, 'Para hacer un reporte sobre una incidencia administrativa en un equipo envía los siguientes datos anteponiendo una coma *","* antes de cada dato (por ejemplo ",4001", ",Juan perez", etc.) despues de cada dato recibirás un mensaje de confiramación: \n \n *Nombre* \n *Número de laboratio* \n *Materia* \n *Descripción del reporte* \n \n Una vez guardados los datos escibe *4* para guardar el reporte. \n \n En caso de que te equivoques o quieras cambiar algún dato escribe la palabra *del* para borrar los datos.');
+                    sendMessage(from, 'Para hacer un reporte sobre una incidencia administrativa envía los siguientes datos anteponiendo una guión alto *"-"* antes de cada dato (como se ve en la imagen de ejemplo), despues de cada dato recibirás un mensaje de confirmación: \n \n *Nombre* \n *Laboratorio* \n *Materia* \n *Descripción del reporte* \n \n Una vez guardados los datos escibe *4* para guardar el reporte. \n \n En caso de que te equivoques o quieras cambiar algún dato escribe la palabra *del* para borrar los datos.');
+                    sendMedia(from, 'tutodata.png');
                 }else if (txt.charAt(0)==='-'){
-                    datosE.push(body.slice(1,250));
+                    datos.push(body.slice(1,250));
                     sendMessage(from, 'Dato recibido');
-                    console.log(datosE);
-                }else if (txt.charAt(0)===','){
-                    datosA.push(body.slice(1,250));
-                    sendMessage(from, 'Dato recibido');
-                    console.log(datosA);
+                    console.log(datos);
                 }else if(txt === '3'){
-                    insertHw(datosE);
-                    datosE.pop(),datosE.pop(),datosE.pop(),datosE.pop();
+                    insertEq(datos);
+                    datos.pop(),datos.pop(),datos.pop(),datos.pop(),datos.pop(),datos.pop();
                     num = '0';
                     sendMessage(from, 'El reporte se ha guardado con éxito. \n Hasta luego😀');
                 }else if(txt === '4'){
-                    insertAd(datosA);
-                    datosA.pop(),datosA.pop(),datosA.pop(),datosA.pop();
+                    insertAd(datos);
+                    datos.pop(),datos.pop(),datos.pop(),datos.pop(),datos.pop(),datos.pop();
                     num = '0';
                     sendMessage(from, 'El reporte se ha guardado con éxito. \n Hasta luego😀');
                 }else if (txt === 'del'){
-                    datosE.pop(),datosE.pop(),datosE.pop(),datosE.pop();
-                    datosA.pop(),datosA.pop(),datosA.pop(),datosA.pop();
+                    datos.pop(),datos.pop(),datos.pop(),datos.pop(),datos.pop(),datos.pop();
                     sendMessage(from, 'Datos borrados, por favor vueleve a ingresar los datos desde el principio');
+                }else if(txt === '0'){
+                    datos.pop(),datos.pop(),datos.pop(),datos.pop(),datos.pop(),datos.pop();
+                    num = '0';
+                    sendMessage(from, 'Sesión finalizada');
                 }else{
                     sendMessage(from,'Opción invalida');
                 }
