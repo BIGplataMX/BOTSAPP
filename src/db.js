@@ -39,7 +39,7 @@ const insertEq = (data) => {
     con.query(sql, [values], function (err, result) {
         if (err) throw err;
         console.log("Reporte guardado");
-    });
+    })
 }
 
 const insertAd = (data) => {
