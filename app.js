@@ -1,4 +1,4 @@
-const {Client, LocalAuth, MessageMedia} = require('whatsapp-web.js');
+const {Client, LocalAuth, MessageMedia, NoAuth} = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const {insertEq, insertAd} = require('./src/db');
 
@@ -45,7 +45,7 @@ const listenMessage = () => {
                     sendMessage(from, 'Para hacer un reporte sobre una incidencia administrativa envía los siguientes datos anteponiendo una guión alto *"-"* antes de cada dato (como se ve en la imagen de ejemplo), después de cada dato recibirás un mensaje de confirmación: \n \n *Nombre* \n *Laboratorio* \n *Materia* \n *Descripción del reporte* \n \n Una vez guardados los datos escribe *G* para guardar el reporte. \n \n En caso de que te equivoques o quieras cambiar algún dato escribe la palabra *del* para borrar los datos.\n \n Si necesitas ayuda para saber cómo enviar el reporte y cómo funcionan otros comandos, envía una *h* para obtener ayuda');
                     sendMedia(from, 'tutodata.png');
                     rep = 2;
-                }else if (txt.charAt(0)==='-'){
+                }else if (txt.charAt(0)==='-'){ 
                     num = from;
                     datos.push(body.slice(1,250));
                     if(rep === 1){
