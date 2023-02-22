@@ -18,11 +18,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BIGplataMX/BOTSAPP.git"
+    "url": "git+https://github.com/RickPlata/BOTSAPP.git"
   },
   "bugs": {
-    "url": "https://github.com/BIGplataMX/BOTSAPP/issues"
+    "url": "https://github.com/RickPlata/BOTSAPP/issues"
   },
-  "homepage": "https://github.com/BIGplataMX/BOTSAPP#readme",
+  "homepage": "https://github.com/RickPlata/BOTSAPP#readme",
   "description": ""
 }

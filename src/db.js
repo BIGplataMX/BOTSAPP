@@ -36,7 +36,7 @@ function fecha(){
 const insertEq = (data) => {
     var sql = 'INSERT INTO equipos VALUES ?';
     var values = [["NULL", data[0], data[1],data[2],data[3],data[4],hora(),fecha()]]
-    con.query(sql, [values], function (err, result) {
+    con.query(sql, [values], function (result) {
         //if (err) throw err;
         console.log("Reporte guardado");
     })
@@ -45,7 +45,7 @@ const insertEq = (data) => {
 const insertAd = (data) => {
     var sql = 'INSERT INTO administrativos VALUES ?';
     var values = [["NULL", data[0], data[1],data[2],data[3],hora(),fecha()]]
-    con.query(sql, [values], function (err, result) {
+    con.query(sql, [values], function (result) {
         //if (err) throw err;
         console.log("Reporte guardado");
     });
