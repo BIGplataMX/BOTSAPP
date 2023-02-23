@@ -47,9 +47,9 @@ const listenMessage = () => {
                     num = from;
                     datos.push(body.slice(1,250));
                     if(rep === 1){
-                        sendMessage(from, 'Dato recibido \n\n' + '*Nombre:*  ' + datos[0]+'\n' + '*Lab:*  ' + datos[1]+'\n'+ '*Equipo:*  ' + datos[2]+'\n' + '*Materia:*  ' + datos[3]+'\n' + '*Reporte:*  ' + datos[4]);
+                        sendMessage(from, 'Dato recibido \n\n' + '*Nombre:*  ' + datos[0]+'\n' + '*Lab:*  ' + datos[1]+'\n'+ '*Equipo:*  ' + datos[2]+'\n' + '*Materia:*  ' + datos[3]+'\n' + '*Reporte:*  ' + datos[4] + '\n\n' + 'recuerda enviar una letra g cuando termines para guardar tu reporte');
                     }else if (rep === 2 ){
-                        sendMessage(from, 'Dato recibido \n\n' + '*Nombre:*  ' + datos[0]+'\n' + '*Lab:*  ' + datos[1]+'\n'+ '*Materia:*  ' + datos[2]+'\n' + '*Reporte:*  ' + datos[3]);
+                        sendMessage(from, 'Dato recibido \n\n' + '*Nombre:*  ' + datos[0]+'\n' + '*Lab:*  ' + datos[1]+'\n'+ '*Materia:*  ' + datos[2]+'\n' + '*Reporte:*  ' + datos[3] + '\n\n' + 'recuerda enviar una letra g cuando termines para guardar tu reporte');
                     }else{
                         sendMessage(from, 'Dato recibido');
                     }

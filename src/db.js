@@ -13,7 +13,7 @@ function hora(){
     var hour = date.getHours().toString()
     var minutes = date.getMinutes().toString()
 
-    if (date.getMinutes<10){
+    if (minutes<10){
         return hour + ' : 0' + minutes + " hrs";
     }else{
         return hour + ' : ' + minutes + " hrs";
@@ -39,8 +39,7 @@ const insertEq = (data) => {
     con.query(sql, [values], function (result) {
         //if (err) throw err;
         console.log("Reporte guardado");
-    });
-    con.end()
+    })
 }
 
 const insertAd = (data) => {
@@ -49,8 +48,7 @@ const insertAd = (data) => {
     con.query(sql, [values], function (result) {
         //if (err) throw err;
         console.log("Reporte guardado");
-    });
-    con.end()
+    })
 }
 
 var horaInt = setInterval(hora, 1000);
