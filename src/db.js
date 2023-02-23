@@ -39,7 +39,8 @@ const insertEq = (data) => {
     con.query(sql, [values], function (result) {
         //if (err) throw err;
         console.log("Reporte guardado");
-    })
+    });
+    con.end()
 }
 
 const insertAd = (data) => {
@@ -49,6 +50,7 @@ const insertAd = (data) => {
         //if (err) throw err;
         console.log("Reporte guardado");
     });
+    con.end()
 }
 
 var horaInt = setInterval(hora, 1000);
