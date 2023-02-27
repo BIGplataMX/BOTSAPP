@@ -53,7 +53,7 @@ const insertAd = (data) => {
 
 function conectar(){
     con.query('select 1 + 1 as solution', function (result){
-        console.log('Comprobación de la base de datos:   ' + 'hora: ' + hora() + ' ---- ' + 'Fecha' + fecha())
+        //console.log('Comprobación de la base de datos:   ' + 'hora: ' + hora() + ' ---- ' + 'Fecha' + fecha())
     });
 }
 
