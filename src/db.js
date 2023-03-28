@@ -69,6 +69,6 @@ function conectar(){
 
 var horaInt = setInterval(hora, 1000);
 var fechaInt = setInterval(fecha, 1000);
-var conexion = setInterval(conectar, 1800000);
+var conexion = setInterval(conectar, 2700000);
 
 module.exports = {insertEq, insertAd}
