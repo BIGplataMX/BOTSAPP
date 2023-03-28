@@ -40,9 +40,7 @@ const listenMessage = () => {
                     }else{
                         sendMessage(from, '*Bienvenido al sistema de incidencias de laboratorios de computación* \n Ingresa la opción deseada \n \n 1.- Reporte de falla técnica \n 2.- Reporte administrativo \n 0.- Para salir \n También puedes solicitar un horario enviando tu grupo *por ejemplo "1cv1" o "9cv12"* (Cuento con todos los horarios de ICE). \n \n Si necesitas ayuda para saber cómo enviar el reporte y cómo funcionan otros comandos, envía una *h* para obtener ayuda');
                     }
-                //Guardado de sesion en el Map  
-                    sendMessage(from, '*Bienvenido al sistema de incidencias de laboratorios de computación* \n Ingresa la opción deseada \n \n 1.- Reporte de falla técnica \n 2.- Reporte administrativo \n 0.- Para salir \n También puedes solicitar un horario enviando tu grupo *por ejemplo "1cv1" o "9cv12"* (Cuento con todos los horarios de ICE). \n \n Si necesitas ayuda para saber cómo enviar el reporte y cómo funcionan otros comandos, envía una *h* para obtener ayuda');
-                    num = from;
+                //Guardado de sesion en el Map
                 }else if (txt === '1'){
                     sendMessage(from, 'Para hacer un reporte sobre una falla en un equipo envía los siguientes datos anteponiendo un guion alto *-* antes de cada dato (como se ve en la imagen de ejemplo), después de cada dato recibirás un mensaje de confirmación: \n \n *Nombre* \n *Laboratorio* \n *Numero del equipo* \n *Materia* \n *Descripción del reporte* \n \n Una vez guardados los datos escribe *G* para guardar el reporte. \n \n En caso de que te equivoques o quieras corregir un dato escribe la palabra *del* para borrar los datos o presiona *0* si quieres salir.\n \n Si necesitas ayuda para saber cómo enviar el reporte y cómo funcionan otros comandos, envía una *h* para obtener ayuda');
                     report.set(from, ['1'])
