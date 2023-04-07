@@ -29,7 +29,7 @@ function fecha(){
     var month = m.toString()
     var year = date.getFullYear().toString()
 
-    return day + '-' + month + '-' + year;
+    return year + '-' + month + '-' + day;
 
 }
 
