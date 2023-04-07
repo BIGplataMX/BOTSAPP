@@ -12,12 +12,9 @@ function hora(){
 
     var hour = date.getHours().toString()
     var minutes = date.getMinutes().toString()
-
-    if (minutes<10){
-        return hour + ' : 0' + minutes + " hrs";
-    }else{
-        return hour + ' : ' + minutes + " hrs";
-    }
+    var seconds = date.getSeconds().toString()
+  
+    return hour + ':' + minutes + ':' + seconds;
     
 }
 
