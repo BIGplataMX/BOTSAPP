@@ -6,7 +6,7 @@ create table equipos(
     materia varchar(255),
     incidencia varchar(255),
     hora time,
-    fechas date,
+    fecha date,
     primary key (id)
 )ENGINE=InnoDB;
 
@@ -17,7 +17,7 @@ create table administrativos(
     materia varchar(255),
     incidencia varchar(255),
     hora time,
-    fechas date,
+    fecha date,
     primary key (id)
 )ENGINE=InnoDB;
 
@@ -29,7 +29,7 @@ create table equiposh(
     materia varchar(255),
     incidencia varchar(255),
     hora time,
-    fechas date,
+    fecha date,
     primary key (id)
 )ENGINE=InnoDB;
 
@@ -41,7 +41,7 @@ create table administrativosh(
     materia varchar(255),
     incidencia varchar(255),
     hora time,
-    fechas date,
+    fecha date,
     primary key (id)
 )ENGINE=InnoDB;
 
