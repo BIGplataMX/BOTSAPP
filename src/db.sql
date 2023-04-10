@@ -47,7 +47,7 @@ create table administrativosh(
 
 create table users(
     id int not null auto_increment,
-    user_name varchar(255) not null,
+    user varchar(255) not null,
     pass varchar(255) not null,
     user_type int not null,
     primary key (id)

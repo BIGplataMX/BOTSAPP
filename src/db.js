@@ -4,7 +4,7 @@ var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "incidenciastest"
+    database: "LABS_ICE"
   });
 
 function hora(){
