@@ -1,4 +1,4 @@
-const {Client, LocalAuth, MessageMedia, NoAuth} = require('whatsapp-web.js');
+const {Client, LocalAuth, MessageMedia} = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const {insertEq, insertAd, conectar} = require('./src/db');
 
@@ -10,7 +10,6 @@ const client = new Client({
     authStrategy: new LocalAuth()
 });
 
-console.log('->Iniciando sesión')
 
 //Generación de código qr
 client.on('qr', qr => {
