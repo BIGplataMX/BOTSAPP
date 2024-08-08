@@ -3,3 +3,4 @@ chats/
 session.json
 mediaSend/
 .wwebjs_auth/
+.wwebjs_cache/
