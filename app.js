@@ -10,6 +10,7 @@ const client = new Client({
     authStrategy: new LocalAuth()
 });
 
+console.log("-> El cliente se esta iniciando")
 
 //Generación de código qr
 client.on('qr', qr => {
