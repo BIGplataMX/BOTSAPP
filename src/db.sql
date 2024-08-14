@@ -7,8 +7,23 @@ create table equipos(
     incidencia varchar(255),
     hora time,
     fecha date,
+    his int not null,
     primary key (id)
 )ENGINE=InnoDB;
+
+
+create table equipos(
+    id bigint not null identity(1,1),
+    nombre varchar(255),
+    lab varchar(255),
+    equipo varchar(255),
+    materia varchar(255),
+    incidencia varchar(255),
+    hora time,
+    fecha date,
+    his int not null,
+    primary key (id)
+)
 
 create table administrativos(
     id bigint(255) not null auto_increment,
@@ -18,8 +33,21 @@ create table administrativos(
     incidencia varchar(255),
     hora time,
     fecha date,
+    his int not null,
     primary key (id)
 )ENGINE=InnoDB;
+
+create table administrativos(
+    id bigint not null identity(1,1),
+    nombre varchar(255),
+    lab varchar(255),
+    materia varchar(255),
+    incidencia varchar(255),
+    hora time,
+    fecha date,
+    his int not null,
+    primary key (id)
+)
 
 create table equiposh(
     id bigint(255) not null auto_increment,
