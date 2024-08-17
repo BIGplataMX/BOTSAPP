@@ -4,3 +4,4 @@ session.json
 mediaSend/
 .wwebjs_auth/
 .wwebjs_cache/
+.env
