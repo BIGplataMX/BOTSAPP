@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "i": "^0.3.7",
+    "mssql": "^11.0.1",
     "mysql": "^2.18.1",
     "punycode": "^2.3.1",
     "qrcode-terminal": "^0.12.0",

@@ -1,70 +1,78 @@
-var mysql = require('mysql');
+const sql = require('mssql');
+require('dotenv').config();
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "LABS_ICE"
-  });
+const config = {
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER,
+    database: process.env.DB_DATABASE,
+    port: parseInt(process.env.DB_PORT, 10),
+    options: {
+        encrypt: true, 
+        trustServerCertificate: true 
+    }
+};
 
-function hora(){
+function hora() {
     var date = new Date();
 
-    var hour = date.getHours().toString()
-    var minutes = date.getMinutes().toString()
-    var seconds = date.getSeconds().toString()
-  
-    return hour + ':' + minutes + ':' + seconds;
+    var hour = date.getHours().toString().padStart(2, '0'); // Formato "HH"
+    var minutes = date.getMinutes().toString().padStart(2, '0'); // Formato "MM"
+    var seconds = date.getSeconds().toString().padStart(2, '0'); // Formato "SS"
+
+    // Retorna en formato "HH:MM:SS.SSS"
+    return `${hour}:${minutes}:${seconds}`;
+}
+
+function fecha() {
+    var date = new Date();
+    var day = date.getDate().toString().padStart(2, '0');
+    var month = (date.getMonth() + 1).toString().padStart(2, '0');
+    var year = date.getFullYear().toString();
+
+    return `${year}-${month}-${day}`;
+}
+
+async function insertEq(data) {
+    try {
+        let pool = await sql.connect(config);
+        const horaCurrent = hora();
+        const fechaCurrent = fecha();
+
+        let insert = await pool.request()
+            .query(`INSERT INTO equipos (nombre, lab, equipo, materia, incidencia, hora, fecha, his) VALUES ('${data[1]}' , '${data[2]}', '${data[3]}', '${data[4]}', '${data[5]}', '${horaCurrent}', '${fechaCurrent}', 0)`);
+
+        console.log('Reporte de quipo guardado:', insert.rowsAffected);
+    } catch (err) {
+        console.error('Error al insertar los datos:', err);
+    } finally {
+        await sql.close();
+    }
+}
+
+async function insertAd(data) {
+    try {
+        let pool = await sql.connect(config);
+        const horaCurrent = hora();
+        const fechaCurrent = fecha();
+
+        let insert = await pool.request()
+            .query(`INSERT INTO administrativos (nombre, lab, materia, incidencia, hora, fecha, his) VALUES ('${data[1]}' , '${data[2]}', '${data[3]}', '${data[4]}', '${horaCurrent}', '${fechaCurrent}', 0)`);
+
+        console.log('Reporte administrativo guardado:', insert.rowsAffected);
+    } catch (err) {
+        console.error('Error al insertar los datos:', err);
+    } finally {
+        await sql.close();
+    }
     
 }
 
-function fecha(){
-    var date = new Date();
-    var m = date.getMonth()+1;
 
-    var day = date.getDate().toString()
-    var month = m.toString()
-    var year = date.getFullYear().toString()
+// function conectar(){
+//     con.query('select 1 + 1 as solution', function (result){
+//         console.log('Comprobación de la base de datos:   ' + 'hora: ' + hora() + ' ---- ' + 'Fecha' + fecha())
+//     });
+// }
 
-    return year + '-' + month + '-' + day;
-
-}
-
-const insertEq = (data) => {
-    var sql = 'INSERT INTO equipos VALUES ?';
-    var sql2 = 'INSERT INTO equiposh VALUES ?';
-    var values = [["NULL", data[1], data[2],data[3],data[4],data[5],hora(),fecha()]]
-    con.query(sql, [values], function (result) {
-        //if (err) throw err;
-        console.log("Reporte guardado");
-    })
-    con.query(sql2, [values], function (result) {
-        //if (err) throw err;
-        console.log("Reporte guardado en el historial");
-    })
-}
-
-const insertAd = (data) => {
-    var sql = 'INSERT INTO administrativos VALUES ?';
-    var sql2 = 'INSERT INTO administrativosh VALUES ?';
-    var values = [["NULL", data[1], data[2],data[3],data[4],hora(),fecha()]]
-    con.query(sql, [values], function (result) {
-        //if (err) throw err;
-        console.log("Reporte guardado");
-    })
-    con.query(sql2, [values], function (result) {
-        //if (err) throw err;
-        console.log("Reporte guardado en el historial");
-    })
-}
-
-function conectar(){
-    con.query('select 1 + 1 as solution', function (result){
-        console.log('Comprobación de la base de datos:   ' + 'hora: ' + hora() + ' ---- ' + 'Fecha' + fecha())
-    });
-}
-
-var horaInt = setInterval(hora, 1000);
-var fechaInt = setInterval(fecha, 1000);
-
-module.exports = {insertEq, insertAd, conectar}
+module.exports = {insertEq, insertAd}
